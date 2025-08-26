@@ -5,7 +5,20 @@
       "bump-minor-pre-major": false,
       "bump-patch-for-minor-pre-major": false,
       "draft": false,
-      "prerelease": false
+      "prerelease": false,
+      "release-type": "rust",
+      "changelog-sections": [
+        {   "type": "feat",     "section": "Features"                 },
+        {   "type": "feature",  "section": "Features"                 },
+        {   "type": "fix",      "section": "Bug Fixes"                },
+        {   "type": "bug",      "section": "Bug Fixes"                },
+        {   "type": "doc",      "section": "Documentation"            },
+        {   "type": "docs",     "section": "Documentation"            },
+        {   "type": "test",     "section": "Testing"                  },
+        {   "type": "tests",    "section": "Testing"                  },
+        {   "type": "chore",    "section": "Project Configuraiton"    },
+        {   "type": "ci",       "section": "Continuous Integration"   }
+      ]
     }
   },
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"
