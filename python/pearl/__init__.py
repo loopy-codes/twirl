@@ -1,1 +1,1 @@
-from pearl._pyo3 import *
+from pearl.languages import *  # type: ignore
