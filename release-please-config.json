@@ -16,7 +16,7 @@
         {   "type": "docs",     "section": "Documentation"            },
         {   "type": "test",     "section": "Testing"                  },
         {   "type": "tests",    "section": "Testing"                  },
-        {   "type": "chore",    "section": "Project Configuraiton"    },
+        {   "type": "chore",    "section": "Project Configuration"    },
         {   "type": "ci",       "section": "Continuous Integration"   }
       ]
     }
