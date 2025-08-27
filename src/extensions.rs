@@ -1,5 +1,6 @@
+use once_cell::sync::Lazy;
+use std::collections::HashMap;
 use tree_sitter::Language;
-
 use tree_sitter_c;
 use tree_sitter_cpp;
 use tree_sitter_java;
@@ -9,25 +10,37 @@ use tree_sitter_python;
 use tree_sitter_rust;
 use tree_sitter_typescript;
 
-pub static LANGUAGES: &[&str] = &[
-    "c", "h", "hpp", "cpp", "cc", "jl", "py", "rs", "java", "js", "ts",
-];
+static LANGUAGE_EXTENSIONS: Lazy<HashMap<&'static str, Language>> = Lazy::new(|| {
+    let mut m = HashMap::new();
 
-pub fn language(file_extension: &str) -> Option<Language> {
-    match file_extension {
-        "c" => Some(tree_sitter_c::LANGUAGE.into()),
-        "h" => Some(tree_sitter_c::LANGUAGE.into()),
-        "hpp" => Some(tree_sitter_cpp::LANGUAGE.into()),
-        "cpp" => Some(tree_sitter_cpp::LANGUAGE.into()),
-        "cc" => Some(tree_sitter_cpp::LANGUAGE.into()),
-        "jl" => Some(tree_sitter_julia::LANGUAGE.into()),
-        "py" => Some(tree_sitter_python::LANGUAGE.into()),
-        "rs" => Some(tree_sitter_rust::LANGUAGE.into()),
-        "java" => Some(tree_sitter_java::LANGUAGE.into()),
-        "js" => Some(tree_sitter_javascript::LANGUAGE.into()),
-        "ts" => Some(tree_sitter_typescript::LANGUAGE_TYPESCRIPT.into()),
-        _ => None,
-    }
+    // C/C++
+    m.insert("c", tree_sitter_c::LANGUAGE.into());
+    m.insert("h", tree_sitter_c::LANGUAGE.into());
+    m.insert("hpp", tree_sitter_cpp::LANGUAGE.into());
+    m.insert("cpp", tree_sitter_cpp::LANGUAGE.into());
+    m.insert("cc", tree_sitter_cpp::LANGUAGE.into());
+
+    // Other languages
+    m.insert("jl", tree_sitter_julia::LANGUAGE.into());
+    m.insert("py", tree_sitter_python::LANGUAGE.into());
+    m.insert("rs", tree_sitter_rust::LANGUAGE.into());
+    m.insert("java", tree_sitter_java::LANGUAGE.into());
+    m.insert("js", tree_sitter_javascript::LANGUAGE.into());
+    m.insert("ts", tree_sitter_typescript::LANGUAGE_TYPESCRIPT.into());
+
+    return m;
+});
+
+pub fn supported_extensions() -> Vec<String> {
+    return LANGUAGE_EXTENSIONS
+        .keys()
+        .cloned()
+        .map(|key| key.to_string())
+        .collect();
+}
+
+pub fn language(file_extension: &str) -> Option<&Language> {
+    return LANGUAGE_EXTENSIONS.get(file_extension);
 }
 
 #[cfg(test)]
@@ -35,13 +48,13 @@ mod tests {
     use super::*;
 
     #[test]
-    fn languages() {
+    fn test_languages() {
         // unsupported extensions
-        assert_eq!(language(""), None);
+        assert!(language("").is_none());
 
         // supported extensions
-        for lang in LANGUAGES {
-            assert_ne!(language(lang), None);
+        for ext in supported_extensions() {
+            assert!(language(ext.as_str()).is_some());
         }
     }
 }

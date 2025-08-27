@@ -1,16 +1,19 @@
-pub mod extensions;
+mod extensions;
 
 use pyo3::prelude::*;
+use pyo3::types::PyList;
 
-/// Formats the sum of two numbers as string.
+/// Returns a list of supported file extensions
 #[pyfunction]
-fn sum_as_string(a: usize, b: usize) -> PyResult<String> {
-    Ok((a + b).to_string())
+fn supported_extensions(py: Python<'_>) -> PyResult<Bound<'_, PyList>> {
+    let exts = extensions::supported_extensions();
+    let list = PyList::new(py, exts)?;
+    return Ok(list);
 }
 
 /// A Python module implemented in Rust.
 #[pymodule]
 fn pearl(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(sum_as_string, m)?)?;
+    m.add_function(wrap_pyfunction!(supported_extensions, m)?)?;
     Ok(())
 }
