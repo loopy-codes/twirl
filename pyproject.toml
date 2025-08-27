@@ -14,6 +14,8 @@ dynamic = ["version"]
 
 [tool.maturin]
 features = ["pyo3/extension-module"]
+python-source = "python"
+module-name = "pearl._pyo3"
 
 [dependency-groups]
 dev = [
