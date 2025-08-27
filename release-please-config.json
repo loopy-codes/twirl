@@ -5,7 +5,7 @@
       "bump-minor-pre-major": false,
       "bump-patch-for-minor-pre-major": false,
       "draft": false,
-      "prerelease": false,
+      "prerelease": true,
       "release-type": "rust",
       "changelog-sections": [
         {   "type": "feat",     "section": "Features"                 },
