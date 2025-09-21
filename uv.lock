@@ -196,7 +196,7 @@ wheels = [
 ]
 
 [[package]]
-name = "pearl"
+name = "loom"
 source = { editable = "." }
 
 [package.dev-dependencies]

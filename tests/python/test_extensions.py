@@ -1,7 +1,7 @@
 def test_extensions():
-    import pearl
+    import loom
 
-    exts = pearl.supported_extensions()
+    exts = loom.supported_extensions()
 
     # must be a list
     assert isinstance(exts, list)

@@ -1,4 +1,4 @@
-use pearl::languages;
+use loom::languages;
 use tree_sitter::{Parser, Tree};
 
 #[test]
