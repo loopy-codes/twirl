@@ -39,8 +39,13 @@ pub fn supported_extensions() -> Vec<String> {
         .collect();
 }
 
-pub fn language(file_extension: &str) -> Option<&Language> {
+pub fn language_from_ext(file_extension: &str) -> Option<&Language> {
     return LANGUAGE_EXTENSIONS.get(file_extension);
+}
+
+pub fn language_from_path(filepath: &std::path::Path) -> Option<&Language> {
+    let file_extension = filepath.extension()?.to_str()?;
+    language_from_ext(file_extension)
 }
 
 // Python Module
@@ -70,16 +75,31 @@ pub mod py {
 
 #[cfg(test)]
 mod tests {
+    use std::path::Path;
+
     use super::*;
 
     #[test]
     fn test_languages() {
         // unsupported extensions
-        assert!(language("").is_none());
+        assert!(language_from_ext("").is_none());
 
         // supported extensions
         for ext in supported_extensions() {
-            assert!(language(ext.as_str()).is_some());
+            assert!(language_from_ext(ext.as_str()).is_some());
         }
+    }
+
+    #[test]
+    fn test_languages_from_paths() {
+        // invalid filepaths
+        assert!(language_from_path(Path::new("foo")).is_none());
+
+        // valid filepaths
+        supported_extensions().into_iter().for_each(|ext| {
+            let path = format!("test.{}", ext.as_str());
+            let path = Path::new(path.as_str());
+            assert!(language_from_path(path).is_some());
+        });
     }
 }
