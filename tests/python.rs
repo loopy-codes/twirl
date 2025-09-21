@@ -1,5 +1,5 @@
 use loom::languages;
-use tree_sitter::{Parser, Tree};
+use tree_sitter::Parser;
 
 #[test]
 fn test_python_language_detection() {
@@ -51,17 +51,20 @@ if __name__ == "__main__":
 
     // Check that we can find function definitions
     let mut cursor = root_node.walk();
-    let mut found_function = false;
 
-    for child in root_node.children(&mut cursor) {
-        if child.kind() == "function_definition" {
-            found_function = true;
-            break;
-        }
-    }
+    let functions_count = root_node
+        .children(&mut cursor)
+        .map(|child| {
+            if child.kind() == "function_definition" {
+                1
+            } else {
+                0
+            }
+        })
+        .count();
 
     assert!(
-        found_function,
+        functions_count > 0,
         "Should find at least one function definition"
     );
 }
