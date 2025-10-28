@@ -13,7 +13,7 @@ fn supported_extensions(py: Python<'_>) -> PyResult<Bound<'_, PyList>> {
 
 /// A Python module implemented in Rust.
 #[pymodule]
-fn languages(m: &Bound<'_, PyModule>) -> PyResult<()> {
+fn o3(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(supported_extensions, m)?)?;
     Ok(())
 }
