@@ -1,5 +1,5 @@
 [global]
-line_length = -1
+line_length = 0
 force_exclude = true
 
 exclude = [
