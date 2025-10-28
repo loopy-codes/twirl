@@ -15,7 +15,7 @@ dynamic = ["version"]
 [tool.maturin]
 features = ["pyo3/extension-module"]
 python-source = "python"
-module-name = "loom.languages"
+module-name = "loom.o3"
 
 [dependency-groups]
 dev = [
