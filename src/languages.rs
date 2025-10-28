@@ -43,29 +43,6 @@ pub fn language(file_extension: &str) -> Option<&Language> {
     return LANGUAGE_EXTENSIONS.get(file_extension);
 }
 
-// Python Module
-
-pub mod py {
-
-    use pyo3::prelude::*;
-    use pyo3::types::PyList;
-
-    /// Returns a list of supported file extensions
-    #[pyfunction]
-    fn supported_extensions(py: Python<'_>) -> PyResult<Bound<'_, PyList>> {
-        let exts = super::supported_extensions();
-        let list = PyList::new(py, exts)?;
-        return Ok(list);
-    }
-
-    /// A Python module implemented in Rust.
-    #[pymodule]
-    fn languages(m: &Bound<'_, PyModule>) -> PyResult<()> {
-        m.add_function(wrap_pyfunction!(supported_extensions, m)?)?;
-        Ok(())
-    }
-}
-
 // Unit Tests
 
 #[cfg(test)]
