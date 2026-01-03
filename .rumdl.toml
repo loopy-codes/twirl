@@ -1,6 +1,6 @@
 [global]
-line_length = 0
-force_exclude = true
+line-length = 0
+force-exclude = true
 
 exclude = [
     ".git",
@@ -9,8 +9,8 @@ exclude = [
     "CHANGELOG.md",
 ]
 
-respect_gitignore = true
+respect-gitignore = true
 
 [MD013]
 reflow = true
-reflow_mode = "sentence_per_line"
+reflow-mode = "sentence-per-line"

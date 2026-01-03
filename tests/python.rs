@@ -1,5 +1,5 @@
-use loom::languages;
-use tree_sitter::Parser;
+use loom::{languages, queries};
+use tree_sitter::{Parser, Query, QueryCursor, StreamingIterator};
 
 #[test]
 fn test_python_language_detection() {
@@ -94,5 +94,88 @@ def broken_function(
     assert!(
         root_node.has_error(),
         "Parse tree should indicate there are errors"
+    );
+}
+
+#[test]
+fn test_python_docstring_queries() {
+    // Get Python language and query
+    let python_lang = languages::language("py").expect("Python language should be available");
+    let query_source = queries::docstring_query("py").expect("Python docstring query should exist");
+
+    let query = Query::new(python_lang, query_source).expect("Should be able to create query");
+    let mut parser = Parser::new();
+    parser
+        .set_language(python_lang)
+        .expect("Failed to set Python language");
+
+    let source_code = r#"
+"""
+This is a module-level docstring.
+It describes the purpose of this Python module.
+"""
+
+def documented_function():
+    """
+    This function has a docstring that describes what it does.
+    It demonstrates our ability to capture function-level docstrings.
+    """
+    return "Hello, documentation!"
+
+class DocumentedClass:
+    """
+    This class has a docstring.
+    It shows we can capture class-level docstrings too.
+    """
+    pass
+
+# This is a regular comment
+# This is a documentation comment that we should capture
+"#;
+
+    let tree = parser
+        .parse(source_code, None)
+        .expect("Failed to parse Python code");
+
+    let mut query_cursor = QueryCursor::new();
+
+    let mut docstrings = Vec::new();
+    let mut matches = query_cursor.matches(&query, tree.root_node(), source_code.as_bytes());
+    while let Some(m) = matches.next() {
+        let capture = m.captures[0];
+        docstrings.push(&source_code[capture.node.byte_range()]);
+    }
+
+    // We should find 4 docstrings:
+    // 1. Module docstring
+    // 2. Function docstring
+    // 3. Class docstring
+    // 4. Documentation comment
+    assert_eq!(docstrings.len(), 4, "Should find exactly 4 docstrings");
+
+    // Verify content of docstrings
+    assert!(
+        docstrings
+            .iter()
+            .any(|s| s.contains("module-level docstring")),
+        "Should find module docstring"
+    );
+    assert!(
+        docstrings
+            .iter()
+            .any(|s| s.contains("function has a docstring")),
+        "Should find function docstring"
+    );
+    assert!(
+        docstrings
+            .iter()
+            .any(|s| s.contains("class has a docstring")),
+        "Should find class docstring"
+    );
+    assert!(
+        docstrings
+            .iter()
+            .any(|s| s.contains("documentation comment that we should capture")),
+        "Should find documentation comment"
     );
 }
