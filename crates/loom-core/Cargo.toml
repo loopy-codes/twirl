@@ -1,0 +1,8 @@
+[package]
+name = "loom-core"
+version = "0.1.0"
+publish.workspace = true
+edition.workspace = true
+
+[dependencies]
+arborium = { version = "2.5.0", features = ["lang-rust", "lang-python"] }
