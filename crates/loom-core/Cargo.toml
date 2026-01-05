@@ -6,3 +6,4 @@ edition.workspace = true
 
 [dependencies]
 arborium = { version = "2.5.0", features = ["lang-rust", "lang-python"] }
+lsp-types = "0.97.0"
