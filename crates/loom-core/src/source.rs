@@ -7,16 +7,8 @@ use crate::Error;
 use std::fs;
 use std::path::PathBuf;
 
+use arborium::get_language;
 use arborium::tree_sitter::{Language, Parser, Tree};
-
-/// Given a language name, return the corresponding `Language` instance.
-fn get_language(language: &str) -> Option<Language> {
-    match language {
-        "python" => Some(arborium::lang_python::language().into()),
-        "rust" => Some(arborium::lang_rust::language().into()),
-        _ => None,
-    }
-}
 
 /// A single source file.
 pub struct SourceCode {
