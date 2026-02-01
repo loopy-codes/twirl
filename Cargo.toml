@@ -1,12 +1,21 @@
-[package]
-name = "loom"
-version = "0.1.0"
+[workspace]
+resolver = "3"
+members = ["."]
+
+[workspace.package]
 edition = "2024"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[workspace.dependencies]
+pyo3 = "0.27.0"
+
+[package]
+name = "twirl"
+version = "0.0.1"
+edition = "2024"
+
 [lib]
-name = "loom"
+name = "twirl"
 crate-type = ["cdylib"]
 
 [dependencies]
-pyo3 = "0.27.0"
+pyo3.workspace = true
