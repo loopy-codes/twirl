@@ -675,7 +675,6 @@ version = "0.0.0"
 dependencies = [
  "cargo_metadata",
  "clap",
- "semver",
  "toml_edit",
 ]
 
