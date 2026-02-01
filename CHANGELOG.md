@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.3](https://github.com/loopy-codes/twirl/compare/v0.0.2...v0.0.3) (2026-02-01)
+
+
+### Features
+
+* Add GNU General Public License version 2 ([2911905](https://github.com/loopy-codes/twirl/commit/291190505eb9643e4f8866352ee7d7ed2dca0e03))
+* Add license declarations to package configuration files ([422fb94](https://github.com/loopy-codes/twirl/commit/422fb94ba30cb7228871d2fcf1f7edcf20817d26))
+
 ## 0.0.2 (2026-02-01)
 
 
