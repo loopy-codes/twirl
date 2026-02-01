@@ -5,7 +5,9 @@ build-backend = "maturin"
 [project]
 name = "twirl"
 requires-python = ">=3.8"
+license = { file = "LICENSE" }
 classifiers = [
+    "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
     "Programming Language :: Rust",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",

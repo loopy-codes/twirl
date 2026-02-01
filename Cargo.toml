@@ -12,6 +12,7 @@ pyo3 = "0.27.0"
 name = "twirl"
 version = "0.0.2"
 edition = "2024"
+license = "GPL-2.0-only"
 
 [lib]
 name = "twirl"
