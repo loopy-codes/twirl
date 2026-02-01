@@ -15,17 +15,24 @@ jobs:
     name: Trigger release pull-request
     runs-on: ubuntu-latest
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    outputs:
+      pr: ${{ steps.release.outputs.pr }}
     steps:
       - uses: googleapis/release-please-action@v4
+        id: release
         with:
           token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           config-file: .release-please-config.json
   sync-crate-versions:
     name: Sync crate versions in Cargo workspace
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    needs: release-please
+    if: needs.release-please.outputs.pr != ''
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: ${{ fromJSON(needs.release-please.outputs.pr).headBranchName }}
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
       - uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           cache: true
@@ -48,9 +55,11 @@ jobs:
             ${{ runner.os }}-cargo-build-
       - name: Run cargo xtask sync
         run: cargo xtask sync
-      - name: Push changes
+      - name: Commit and push changes
         run: |
           if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
             git add **/Cargo.toml
             git commit -m "chore: sync crate versions"
             git push
