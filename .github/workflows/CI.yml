@@ -16,14 +16,13 @@ jobs:
     strategy:
       matrix:
         platform:
-          - runner: ubuntu-22.04
-            target: x86_64-unknown-linux-gnu
-          - runner: windows-2022
-            target: x86_64-pc-windows-msvc
-          - runner: macos-13
-            target: x86_64-apple-darwin
-          - runner: macos-14
-            target: aarch64-apple-darwin
+          - runner: ubuntu-24.04
+          - runner: ubuntu-24.04-arm
+          - runner: windows-2025
+          - runner: windows-11-arm
+          - runner: macos-15-intel
+          - runner: macos-15
+
     steps:
       - uses: actions/checkout@v6
       - uses: actions-rust-lang/setup-rust-toolchain@v1
