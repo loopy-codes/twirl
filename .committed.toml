@@ -14,6 +14,7 @@ allowed_types = [
     "docs",
     "style",
     "refactor",
+    "revert",
     "perf",
     "test",
 ]
