@@ -16,17 +16,11 @@ jobs:
     strategy:
       matrix:
         platform:
-          - runner: ubuntu-22.04
+          - runner: ubuntu-24.04
             target: x86_64
-          - runner: ubuntu-22.04
-            target: x86
-          - runner: windows-latest
+          - runner: windows-2025
             target: x64
-          - runner: windows-latest
-            target: x86
-          - runner: macos-13
-            target: x86_64
-          - runner: macos-14
+          - runner: macos-15
             target: aarch64
 
     steps:
