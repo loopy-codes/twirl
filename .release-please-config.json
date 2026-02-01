@@ -18,7 +18,7 @@
       "pull-request-title-pattern": "chore(release): v${version}",
       "include-component-in-tag": false,
       "extra-files": ["pyproject.toml"],
-      "exclude-paths": ["crates"]
+      "exclude-paths": ["crates", "xtask"]
     },
     "crates/squirrel": {
       "release-as": "0.0.1"
