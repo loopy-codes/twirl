@@ -19,6 +19,9 @@
       "include-component-in-tag": false,
       "extra-files": ["pyproject.toml"],
       "exclude-paths": ["crates"]
+    },
+    "crates/squirrel": {
+      "release-as": "0.0.1"
     }
   },
   "plugins": [

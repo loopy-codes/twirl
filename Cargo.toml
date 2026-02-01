@@ -1,12 +1,15 @@
 [workspace]
 resolver = "3"
-members = ["."]
+members = [".", "crates/squirrel"]
 
 [workspace.package]
 edition = "2024"
+publish = false
 
 [workspace.dependencies]
 pyo3 = "0.27.0"
+arborium = "2.12.4"
+lsp-types = "0.97.0"
 
 [package]
 name = "twirl"
@@ -20,3 +23,4 @@ crate-type = ["cdylib"]
 
 [dependencies]
 pyo3.workspace = true
+squirrel = { path = "crates/squirrel", version = "0.0.0" }
