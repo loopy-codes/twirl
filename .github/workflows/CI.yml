@@ -45,10 +45,6 @@ jobs:
           key: ${{ runner.os }}-cargo-build-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
             ${{ runner.os }}-cargo-build-
-      - name: Build and compile project
-        run: cargo test --workspace --no-run
-      - name: Run tests
-        run: cargo test --workspace
       - uses: actions/setup-python@v5
         with:
           python-version-file: ".python-version"
@@ -56,6 +52,10 @@ jobs:
         uses: astral-sh/setup-uv@v7
         with:
           enable-cache: true
+      - name: Build and compile project
+        run: cargo test --workspace --no-run
+      - name: Run tests
+        run: cargo test --workspace
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
