@@ -15,6 +15,7 @@
   "pull-request-footer": "This release was generated with [Release Please](https://github.com/googleapis/release-please).",
   "packages": {
     ".": {
+      "release-as": "0.0.2",
       "pull-request-title-pattern": "chore(release): v${version}",
       "include-component-in-tag": false,
       "extra-files": ["pyproject.toml"],
