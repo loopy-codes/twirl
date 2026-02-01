@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.4](https://github.com/loopy-codes/twirl/compare/v0.0.3...v0.0.4) (2026-02-01)
+
+
+### Features
+
+* Add license declaration to `squirrel` ([900df8c](https://github.com/loopy-codes/twirl/commit/900df8cfa2fe7658e0368d40d83e5448ce73a267))
+* Add scaffolding for `squirrel` crate ([a7f446c](https://github.com/loopy-codes/twirl/commit/a7f446cc47598ec4cba94dfb66bb2e051165ca32))
+
 ## [0.0.3](https://github.com/loopy-codes/twirl/compare/v0.0.2...v0.0.3) (2026-02-01)
 
 
